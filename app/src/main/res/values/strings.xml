@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AndroidWorkshop</string>
+    <string name="get_organisation_units">Get organisation units</string>
+    <string name="get_adonkia">Get Adonkia</string>
+    <string name="got_org_units">Got organisation units</string>
+    <string name="update_organisation_unit">Update organisation unit</string>
+    <string name="create_program">create_program</string>
+    <string name="delete_program">delete program</string>
+    <string name="get_program">get program</string>
+</resources>
