@@ -15,7 +15,7 @@ class ProgramTrackedEntityAttribute implements Serializable {
     boolean displayInList;
     boolean mandatory;
 
-    String program; //programId
+    Program program;
 
     public String getTrackedEntityAttribute() {
         return trackedEntityAttribute;
@@ -57,11 +57,11 @@ class ProgramTrackedEntityAttribute implements Serializable {
         this.mandatory = mandatory;
     }
 
-    public String getProgram() {
+    public Program getProgram() {
         return program;
     }
 
-    public void setProgram(String program) {
+    public void setProgram(Program program) {
         this.program = program;
     }
 }

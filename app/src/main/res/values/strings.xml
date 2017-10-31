@@ -7,4 +7,6 @@
     <string name="create_program">create_program</string>
     <string name="delete_program">delete program</string>
     <string name="get_program">get program</string>
+    <string name="update_orgunit">update orgUnit</string>
+    <string name="create_prog">create program</string>
 </resources>

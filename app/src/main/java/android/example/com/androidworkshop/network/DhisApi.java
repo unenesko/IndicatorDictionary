@@ -9,12 +9,10 @@ import android.example.com.androidworkshop.models.OrganisationUnit;
 import android.example.com.androidworkshop.models.Program;
 import android.example.com.androidworkshop.models.SystemInfo;
 import android.example.com.androidworkshop.models.UserAccount;
-import android.example.com.androidworkshop.models.TrackedEntityInstance;
 
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -73,7 +71,7 @@ public interface DhisApi {
     /////////////////////////////////////////////////////////////////////////
 
     @GET(ApiEndpointConstants.ORGANISATIONUNITS + "/{id}")
-    Observable<OrganisationUnit> getOrganisationUnitById(@Path("id") String organisationUnitId);
+    Call<OrganisationUnit> getOrganisationUnitById(@Path("id") String organisationUnitId);
 
     @GET(ApiEndpointConstants.ORGANISATIONUNITS + "?paging=false")
     Call<Map<String,List<OrganisationUnit>>> getOrganisationUnits(
@@ -88,9 +86,9 @@ public interface DhisApi {
     // Methods for programs
     /////////////////////////////////////////////////////////////////////////
 
-    @GET(ApiEndpointConstants.PROGRAMS + "/{programUid}")
-    Call<Program> getProgram(@Path("programUid") String programUid,
-                       @QueryMap Map<String, String> queryMap);
+    @GET(ApiEndpointConstants.PROGRAMS + "/{id}")
+    Call<Program> getProgramById(@Path("id") String programUid,
+                                 @QueryMap Map<String, String> queryMap);
 
     @POST(ApiEndpointConstants.PROGRAMS + "/")
     Call<ResponseBody> createProgram(@Body Program program);

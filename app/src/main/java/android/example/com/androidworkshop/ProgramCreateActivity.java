@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,12 +33,92 @@ public class ProgramCreateActivity extends FragmentActivity {
     Button getProgramButton;
     ProgressBar spinner;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_program);
 
+        setupViews();
+        dhisApi = DhisServiceGenerator.createService();
+    }
+
+    private void createProgram(){
+        program = new Program();
+        program.setName(name.getText().toString());
+        program.setShortName(shortName.getText().toString());
+        program.setProgramType(ProgramType.WITH_REGISTRATION);
+
+        turnOnSpinner();
+        dhisApi.createProgram(program).enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                turnOffSpinner();
+                setTextMessage(response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                turnOffSpinner();
+                setTextMessage(t.getMessage());
+            }
+        });
+
+    }
+
+    private void deleteProgram(String id){
+        turnOnSpinner();
+        dhisApi.deleteProgram(id).enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                spinner.setVisibility(View.GONE);
+                setTextMessage(response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                spinner.setVisibility(View.GONE);
+                setTextMessage(t.getMessage());
+            }
+        });
+    }
+
+    private void getProgram(){
+        turnOnSpinner();
+
+        final Map<String, String> QUERY_MAP_FULL = new HashMap<>();
+        QUERY_MAP_FULL.put("fields", "*");
+        dhisApi.getProgramById("lxAQ7Zs9VYR", QUERY_MAP_FULL).enqueue(new Callback<Program>() {
+
+            @Override
+            public void onResponse(Call<Program> call, Response<Program> response) {
+                turnOffSpinner();
+                if (response.isSuccessful()) {
+                    Program program = response.body();
+                    setTextMessage(program.getShortName());
+                } else {
+                   setTextMessage(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Program> call, Throwable t) {
+                turnOffSpinner();
+                setTextMessage(t.getMessage());
+            }
+        });
+    }
+
+    private void turnOnSpinner(){
+        spinner.setVisibility(View.VISIBLE);
+    }
+
+    private void turnOffSpinner(){
+        spinner.setVisibility(View.GONE);
+    }
+
+    private void setupViews(){
         name = (TextView) findViewById(R.id.name);
         shortName = (TextView) findViewById(R.id.short_name);
         spinner = (ProgressBar) findViewById(R.id.spinner);
@@ -53,87 +132,10 @@ public class ProgramCreateActivity extends FragmentActivity {
 
         getProgramButton = (Button) findViewById(R.id.get_program);
         getProgramButton.setOnClickListener(v -> getProgram());
-
-
-        dhisApi = DhisServiceGenerator.createService();
     }
 
-    private void createProgram(){
-        program = new Program();
-        program.setName(name.getText().toString());
-        program.setShortName(shortName.getText().toString());
-        program.setProgramType(ProgramType.WITH_REGISTRATION);
-
-        spinner.setVisibility(View.VISIBLE);
-        dhisApi.createProgram(program).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                spinner.setVisibility(View.GONE);
-                TextView text = (TextView) findViewById(R.id.textView);
-                text.setText(response.message());
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                spinner.setVisibility(View.GONE);
-                TextView text = (TextView) findViewById(R.id.textView);
-                text.setText(t.getMessage());
-            }
-        });
-
-    }
-
-    private void deleteProgram(String id){
-        spinner.setVisibility(View.VISIBLE);
-        dhisApi.deleteProgram(id).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                spinner.setVisibility(View.GONE);
-                TextView text = (TextView) findViewById(R.id.textView);
-                text.setText(response.message());
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                spinner.setVisibility(View.GONE);
-                TextView text = (TextView) findViewById(R.id.textView);
-                text.setText(t.getMessage());
-            }
-        });
-    }
-
-    private void getProgram(){
-        spinner.setVisibility(View.VISIBLE);
-
-        final Map<String, String> QUERY_MAP_FULL = new HashMap<>();
-        QUERY_MAP_FULL.put("fields",
-                "*,trackedEntity[*]," +
-                        "programIndicators[*]," +
-                        "programStages[*,!dataEntryForm,program[id],programIndicators[*]," +
-                        "programStageSections[*,programStageDataElements[*,programStage[id]," +
-                        "dataElement[*,id,attributeValues[*,attribute[*]],optionSet[id]]],programIndicators[*]],programStageDataElements" +
-                        "[*,programStage[id],dataElement[*,optionSet[id]]]],programTrackedEntityAttributes" +
-                        "[*,trackedEntityAttribute[*]],!organisationUnits");
-        dhisApi.getProgram("lxAQ7Zs9VYR", QUERY_MAP_FULL).enqueue(new Callback<Program>() {
-            @Override
-            public void onResponse(Call<Program> call, Response<Program> response) {
-                spinner.setVisibility(View.GONE);
-                if (response.isSuccessful()) {
-                    TextView text = (TextView) findViewById(R.id.textView);
-                    Program program = response.body();
-                    text.setText(program.getShortName());
-                } else {
-                    TextView text = (TextView) findViewById(R.id.textView);
-                    text.setText(response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Program> call, Throwable t) {
-                spinner.setVisibility(View.GONE);
-                TextView text = (TextView) findViewById(R.id.textView);
-                text.setText(t.getMessage());
-            }
-        });
+    private void setTextMessage(String message){
+        TextView text = (TextView) findViewById(R.id.textView);
+        text.setText(message);
     }
 }

@@ -37,6 +37,7 @@ package android.example.com.androidworkshop.models;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 public class Program implements Serializable{
     String id;
@@ -58,9 +59,35 @@ public class Program implements Serializable{
 
     String relatedProgram; // relatedProgramId
 
+    Set<AttributeValue> attributeValues;
     List<ProgramIndicator> programIndicators;
-    List<ProgramStage> programStages;
+    Set<ProgramStage> programStages;
     List<ProgramTrackedEntityAttribute> programTrackedEntityAttributes;
+    Set<OrganisationUnit> organisationUnits;
+
+    public Set<AttributeValue> getAttributeValues() {
+        return attributeValues;
+    }
+
+    public void setAttributeValues(Set<AttributeValue> attributeValues) {
+        this.attributeValues = attributeValues;
+    }
+
+    public Set<ProgramStage> getProgramStages() {
+        return programStages;
+    }
+
+    public void setProgramStages(Set<ProgramStage> programStages) {
+        this.programStages = programStages;
+    }
+
+    public Set<OrganisationUnit> getOrganisationUnits() {
+        return organisationUnits;
+    }
+
+    public void setOrganisationUnits(Set<OrganisationUnit> organisationUnits) {
+        this.organisationUnits = organisationUnits;
+    }
 
     public String getDisplayName() {
         return displayName;
@@ -134,14 +161,6 @@ public class Program implements Serializable{
 
     public void setProgramIndicators(List<ProgramIndicator> programIndicators) {
         this.programIndicators = programIndicators;
-    }
-
-    public List<ProgramStage> getProgramStages() {
-        return programStages;
-    }
-
-    public void setProgramStages(List<ProgramStage> programStages) {
-        this.programStages = programStages;
     }
 
     public List<ProgramTrackedEntityAttribute> getProgramTrackedEntityAttributes() {

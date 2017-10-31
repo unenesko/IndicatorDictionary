@@ -2,13 +2,14 @@ package android.example.com.androidworkshop.models;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /*
  * Created by John Melin on 21/10/2017.
  */
 
 class ProgramStage implements Serializable {
-    String program; //programId
+    Program program;
     String id;
     String displayName;
     String description;
@@ -17,9 +18,8 @@ class ProgramStage implements Serializable {
     boolean captureCoordinates;
     boolean remindCompleted;
 
-    List<DataElement> programStageDataElements;
+    Set<ProgramStageDataElement> programStageDataElements;
     List<ProgramStageSection> programStageSections;
-    List<ProgramIndicator> programIndicators;
 
     public String getId() {
         return id;
@@ -37,11 +37,11 @@ class ProgramStage implements Serializable {
         this.displayName = displayName;
     }
 
-    public String getProgram() {
+    public Program getProgram() {
         return program;
     }
 
-    public void setProgram(String program) {
+    public void setProgram(Program program) {
         this.program = program;
     }
 
@@ -85,11 +85,11 @@ class ProgramStage implements Serializable {
         this.repeatable = repeatable;
     }
 
-    public List<DataElement> getProgramStageDataElements() {
+    public Set<ProgramStageDataElement> getProgramStageDataElements() {
         return programStageDataElements;
     }
 
-    public void setProgramStageDataElements(List<DataElement> programStageDataElements) {
+    public void setProgramStageDataElements(Set<ProgramStageDataElement> programStageDataElements) {
         this.programStageDataElements = programStageDataElements;
     }
 
@@ -99,13 +99,5 @@ class ProgramStage implements Serializable {
 
     public void setProgramStageSections(List<ProgramStageSection> programStageSections) {
         this.programStageSections = programStageSections;
-    }
-
-    public List<ProgramIndicator> getProgramIndicators() {
-        return programIndicators;
-    }
-
-    public void setProgramIndicators(List<ProgramIndicator> programIndicators) {
-        this.programIndicators = programIndicators;
     }
 }

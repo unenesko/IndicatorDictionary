@@ -24,7 +24,7 @@ class DataElement implements Serializable{
     private String optionSet;
     private ValueType valueType;
     private List<AttributeValue> attributeValue;
-    private String programStage; //programStageId
+    private ProgramStage programStage;
 
     public String getId() {
         return id;
@@ -34,11 +34,11 @@ class DataElement implements Serializable{
         this.id = id;
     }
 
-    public String getProgramStage() {
+    public ProgramStage getProgramStage() {
         return programStage;
     }
 
-    public void setProgramStage(String programStage) {
+    public void setProgramStage(ProgramStage programStage) {
         this.programStage = programStage;
     }
 

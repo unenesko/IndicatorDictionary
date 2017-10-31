@@ -45,7 +45,6 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="76dp"
         android:layout_height="76dp"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
 
 </LinearLayout>
