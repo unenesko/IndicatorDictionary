@@ -87,8 +87,7 @@ public interface DhisApi {
     /////////////////////////////////////////////////////////////////////////
 
     @GET(ApiEndpointConstants.PROGRAMS + "/{id}")
-    Call<Program> getProgramById(@Path("id") String programUid,
-                                 @QueryMap Map<String, String> queryMap);
+    Call<Program> getProgramById(@Path("id") String programUid, @QueryMap Map<String, String> queryMap);
 
     @POST(ApiEndpointConstants.PROGRAMS + "/")
     Call<ResponseBody> createProgram(@Body Program program);

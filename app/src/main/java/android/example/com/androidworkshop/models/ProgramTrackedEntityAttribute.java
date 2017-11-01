@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 class ProgramTrackedEntityAttribute implements Serializable {
-    String trackedEntityAttribute;
+    TrackedEntityAttribute trackedEntityAttribute;
 
     int sortOrder;
 
@@ -17,11 +17,11 @@ class ProgramTrackedEntityAttribute implements Serializable {
 
     Program program;
 
-    public String getTrackedEntityAttribute() {
+    public TrackedEntityAttribute getTrackedEntityAttribute() {
         return trackedEntityAttribute;
     }
 
-    public void setTrackedEntityAttribute(String trackedEntityAttribute) {
+    public void setTrackedEntityAttribute(TrackedEntityAttribute trackedEntityAttribute) {
         this.trackedEntityAttribute = trackedEntityAttribute;
     }
 

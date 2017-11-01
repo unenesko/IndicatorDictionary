@@ -57,7 +57,7 @@ public class Program implements Serializable{
     String incidentDateLabel;
     boolean singleEvent;
 
-    String relatedProgram; // relatedProgramId
+    Program relatedProgram;
 
     Set<AttributeValue> attributeValues;
     List<ProgramIndicator> programIndicators;
@@ -105,11 +105,11 @@ public class Program implements Serializable{
         this.displayShortName = displayShortName;
     }
 
-    public String getRelatedProgram() {
+    public Program getRelatedProgram() {
         return relatedProgram;
     }
 
-    public void setRelatedProgram(String relatedProgram) {
+    public void setRelatedProgram(Program relatedProgram) {
         this.relatedProgram = relatedProgram;
     }
 

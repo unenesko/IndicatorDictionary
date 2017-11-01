@@ -40,7 +40,7 @@ public class OrganisationUnitEditActivity extends FragmentActivity {
         setupViews();
 
         dhisApi = DhisServiceGenerator.createService();
-        getOrgUnitById("Rp268JB6Ne4");
+        getOrgUnitById("YimTrMUaHPT");
     }
 
     private void getOrgUnitById(String id) {
@@ -68,8 +68,7 @@ public class OrganisationUnitEditActivity extends FragmentActivity {
     private void updateOrganisationUnit(View view) {
         turnOnSpinner();
 
-        orgUnit.setDisplayName(name.getText().toString());
-        orgUnit.setDisplayName(openingDate.getText().toString());
+        orgUnit.setName(name.getText().toString());
 
         dhisApi.putOrganisationUnitById(orgUnit.getId(), orgUnit).enqueue(new Callback<ResponseBody>() {
             @Override

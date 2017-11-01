@@ -15,7 +15,7 @@ public class ProgramStageSection implements Serializable {
     String displayName;
     String name;
 
-    String programStage; //programStageId
+    ProgramStage programStage;
 
     List<ProgramStageDataElement> programStageDataElements;
     List<DataElement> dataElements;
@@ -45,11 +45,11 @@ public class ProgramStageSection implements Serializable {
         this.name = name;
     }
 
-    public String getProgramStage() {
+    public ProgramStage getProgramStage() {
         return programStage;
     }
 
-    public void setProgramStage(String programStage) {
+    public void setProgramStage(ProgramStage programStage) {
         this.programStage = programStage;
     }
 

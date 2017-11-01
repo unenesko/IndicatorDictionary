@@ -21,16 +21,18 @@ public class OrganisationUnit implements Serializable {
     List<Program> programs;
     List<Dataset> datasets;
 
-    public List<String> getChildren() {
+    List<OrganisationUnit> children;
+    OrganisationUnit.TYPE type;
+
+    public List<OrganisationUnit> getChildren() {
         return children;
     }
 
-    public void setChildren(List<String> children) {
+    public void setChildren(List<OrganisationUnit> children) {
         this.children = children;
     }
 
-    List<String> children;
-    OrganisationUnit.TYPE type;
+
 
     public String getDisplayShortName() {
         return displayShortName;
