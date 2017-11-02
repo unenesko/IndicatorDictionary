@@ -18,5 +18,6 @@ public final class ApiEndpointConstants {
     public static final String EVENTS = "events";
     public static final String TRACKED_ENTITY_INSTANCES = "trackedEntityInstances";
     public static final String ENROLLMENTS = "enrollments";
+    public static final String INDICATORS = "indicators";
 }
 

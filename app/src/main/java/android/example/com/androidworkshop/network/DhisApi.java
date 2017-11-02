@@ -5,6 +5,7 @@ package android.example.com.androidworkshop.network;
  * Created by John Melin on 19/10/2017.
  */
 
+import android.example.com.androidworkshop.models.Indicator;
 import android.example.com.androidworkshop.models.OrganisationUnit;
 import android.example.com.androidworkshop.models.Program;
 import android.example.com.androidworkshop.models.SystemInfo;
@@ -94,4 +95,8 @@ public interface DhisApi {
 
     @DELETE(ApiEndpointConstants.PROGRAMS + "/{id}")
     Call<ResponseBody> deleteProgram(@Path("id") String id);
+
+    // methods for getting indicators
+    @GET(ApiEndpointConstants.INDICATORS + "?fields=*&paging=false")
+    Call<Indicator> getAllIndicators(@QueryMap Map<String, List<Indicator> > queryMap);
 }
