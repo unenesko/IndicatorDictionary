@@ -9,10 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
-
 public class IndicatorsDetailsActivity extends AppCompatActivity {
 
     @Override
@@ -29,6 +25,7 @@ public class IndicatorsDetailsActivity extends AppCompatActivity {
 
         name.setText(indicator.getName());
         description.setText(indicator.getDescription());
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

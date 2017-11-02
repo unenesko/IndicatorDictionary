@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,44 +43,12 @@ public class IndicatorsListActivity extends Activity {
                 startActivity(intent);
             }
         });
-
-        //getIndicators();
-
-       // IndicatorsListAdapter adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
-        //rv.setAdapter(adapter);
+        getIndicators(rv);
 
 
-
-
-//        List<Indicator> indicators =  new ArrayList<>();
-//       Indicator a = new Indicator();
-//       a.setName("Inidicator 1");
-//       a.setDescription("Description 1");
-//
-//        Indicator b = new Indicator();
-//        b.setName("Inidicator 2");
-//        b.setDescription("Description 2");
-//
-//        Indicator c = new Indicator();
-//        c.setName("Inidicator 3");
-//        c.setDescription("Description 3");
-//
-//        indicators.add(a);
-//        indicators.add(b);
-//        indicators.add(c);
-//
-//
-//        TemporaryData.indicatorList=indicators;
-//        //setTextMessage(indicators.size() + "");\
-//        Toast.makeText(getApplicationContext(),TemporaryData.indicatorList.size()+"",Toast.LENGTH_LONG).show();
-//        adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
-//        rv.setAdapter(adapter);
-
-
-       //  List<Indicator> indicators = new ArrayList<>();
-
-
-
+    }
+    public void getIndicators(RecyclerView rv)
+    {
         final Map<String, String> QUERY_MAP_FULL = new HashMap<>();
         QUERY_MAP_FULL.put("fields", "*");
 
@@ -89,13 +56,13 @@ public class IndicatorsListActivity extends Activity {
             @Override
             public void onResponse(Call<Map<String, List<Indicator>>> call, Response<Map<String, List<Indicator>>> response) {
                 //turnOffSpinner();
-                if (response.isSuccessful()) {
+                if (response.isSuccessful())
+                {
+
                     List<Indicator> indicators =  response.body().get("indicators");
-                    TemporaryData.indicatorList=indicators;
-                    //setTextMessage(indicators.size() + "");\
-                    Toast.makeText(getApplicationContext(),TemporaryData.indicatorList.size()+"",Toast.LENGTH_LONG).show();
-                    IndicatorsListAdapter adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
-                    rv.setAdapter(adapter);
+                    //assign the Indicator List to a global class
+                    IndicatorsData.setIndicators(indicators);
+                    passDataToAdapter(rv, indicators);
                 } else {
                     // setTextMessage(response.message());
                     Toast.makeText(getApplicationContext(),response.message()+"",Toast.LENGTH_LONG).show();
@@ -109,43 +76,13 @@ public class IndicatorsListActivity extends Activity {
                 Toast.makeText(getApplicationContext(),t.getMessage()+"",Toast.LENGTH_LONG).show();
             }
         });
-
-
     }
-//    public void getIndicators() {
-//        final Map<String, List<Indicator>> QUERY_MAP_FULL = new HashMap<>();
-//        dhisApi.getAllIndicators(QUERY_MAP_FULL).enqueue(new Callback<Indicator>()
-//        {
-//            @Override
-//            public void onResponse(Call<Indicator> call, Response<Indicator> response)
-//            {
-//                if (response.isSuccessful())
-//                {
-//                    TemporaryData.indicatorList = (List<Indicator>) response.body().get);
-//                   // IndicatorsListAdapter adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
-//
-//                    displayToastMessage("Success!");
-//                }
-//                else
-//                {
-//                    displayToastMessage(response.message());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Indicator> call, Throwable t)
-//            {
-//                displayToastMessage(t.getMessage());
-//            }
-//        });
-//    }
-//    private void displayToastMessage(String message)
-//    {
-//        Toast.makeText(
-//                getApplicationContext(),
-//                message,
-//                Toast.LENGTH_SHORT).show();
-//    }
-
-
+    public void passDataToAdapter(RecyclerView rv, List<Indicator> indicators)
+    {
+        TemporaryData.indicatorList=indicators;
+        //setTextMessage(indicators.size() + "");\
+        //Toast.makeText(getApplicationContext(),TemporaryData.indicatorList.size()+"",Toast.LENGTH_LONG).show();
+        IndicatorsListAdapter adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
+        rv.setAdapter(adapter);
+    }
 }
