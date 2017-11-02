@@ -10,10 +10,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class IndicatorsListActivity extends Activity {
     private RecyclerView mRecyclerView;
@@ -103,6 +108,40 @@ public class IndicatorsListActivity extends Activity {
 //        });
 
 
+    }
+    public void getIndicators() {
+        final Map<String, List<Indicator>> QUERY_MAP_FULL = new HashMap<>();
+        dhisApi.getAllIndicators(QUERY_MAP_FULL).enqueue(new Callback<Indicator>()
+        {
+            @Override
+            public void onResponse(Call<Indicator> call, Response<Indicator> response)
+            {
+                if (response.isSuccessful())
+                {
+                    TemporaryData.indicatorList = (List<Indicator>) response.body();
+                    IndicatorsListAdapter adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
+//                  rv.setAdapter(adapter);
+                    displayToastMessage("Success!");
+                }
+                else
+                {
+                    displayToastMessage(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Indicator> call, Throwable t)
+            {
+                displayToastMessage(t.getMessage());
+            }
+        });
+    }
+    private void displayToastMessage(String message)
+    {
+        Toast.makeText(
+                getApplicationContext(),
+                message,
+                Toast.LENGTH_SHORT).show();
     }
 
 
