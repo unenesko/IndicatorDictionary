@@ -12,4 +12,5 @@ import java.util.List;
 public class TemporaryData {
 
     public static List<Indicator> indicatorList=new ArrayList<>();
+
 }

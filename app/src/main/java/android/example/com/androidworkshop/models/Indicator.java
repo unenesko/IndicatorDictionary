@@ -18,9 +18,9 @@ public class Indicator implements Serializable {
     String displayDescription;
     String dimensionItem;
 
-    String user; //userId
+    User user; //userId
     String dimensionItemType;
-    String indicatorType; //indicatorTypeId;
+    IndicatorType indicatorType; //indicatorTypeId;
 
     List<IndicatorGroup> indicatorGroups;
 
@@ -96,11 +96,11 @@ public class Indicator implements Serializable {
         this.dimensionItem = dimensionItem;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -112,11 +112,11 @@ public class Indicator implements Serializable {
         this.dimensionItemType = dimensionItemType;
     }
 
-    public String getIndicatorType() {
+    public IndicatorType getIndicatorType() {
         return indicatorType;
     }
 
-    public void setIndicatorType(String indicatorType) {
+    public void setIndicatorType(IndicatorType indicatorType) {
         this.indicatorType = indicatorType;
     }
 

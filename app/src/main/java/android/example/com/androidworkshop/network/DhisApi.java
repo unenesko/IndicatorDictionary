@@ -99,4 +99,8 @@ public interface DhisApi {
     // methods for getting indicators
     @GET(ApiEndpointConstants.INDICATORS + "?fields=*&paging=false")
     Call<Indicator> getAllIndicators(@QueryMap Map<String, List<Indicator> > queryMap);
+
+    @GET(ApiEndpointConstants.INDICATORS+ "?paging=false")
+    Call<Map<String,List<Indicator>>> getIndicators(
+            @QueryMap(encoded = false) Map<String,String> queryMap);
 }

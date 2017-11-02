@@ -34,7 +34,7 @@ public class IndicatorsDetailsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "You don't have permission to perfom this action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

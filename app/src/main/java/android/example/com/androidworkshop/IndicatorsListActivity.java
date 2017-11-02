@@ -31,8 +31,6 @@ public class IndicatorsListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indicators_list);
         dhisApi = DhisServiceGenerator.createService();
-       // setActionBar(new Toolbar( ));
-
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
         rv.setHasFixedSize(true);
@@ -47,102 +45,107 @@ public class IndicatorsListActivity extends Activity {
             }
         });
 
-        IndicatorsListAdapter adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
-        rv.setAdapter(adapter);
+        //getIndicators();
 
-        List<Indicator> indicators =  new ArrayList<>();
-       Indicator a = new Indicator();
-       a.setName("Inidicator 1");
-       a.setDescription("Description 1");
-
-        Indicator b = new Indicator();
-        b.setName("Inidicator 2");
-        b.setDescription("Description 2");
-
-        Indicator c = new Indicator();
-        c.setName("Inidicator 3");
-        c.setDescription("Description 3");
-
-        indicators.add(a);
-        indicators.add(b);
-        indicators.add(c);
+       // IndicatorsListAdapter adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
+        //rv.setAdapter(adapter);
 
 
-        TemporaryData.indicatorList=indicators;
-        //setTextMessage(indicators.size() + "");\
-        Toast.makeText(getApplicationContext(),TemporaryData.indicatorList.size()+"",Toast.LENGTH_LONG).show();
-        adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
-        rv.setAdapter(adapter);
 
 
-        // List<Indicator> indicators = new ArrayList<>();
-
-
+//        List<Indicator> indicators =  new ArrayList<>();
+//       Indicator a = new Indicator();
+//       a.setName("Inidicator 1");
+//       a.setDescription("Description 1");
 //
-//        final Map<String, String> QUERY_MAP_FULL = new HashMap<>();
-//        QUERY_MAP_FULL.put("fields", "*");
+//        Indicator b = new Indicator();
+//        b.setName("Inidicator 2");
+//        b.setDescription("Description 2");
 //
-//        dhisApi.getIndicators(QUERY_MAP_FULL).enqueue(new Callback<Map<String, List<Indicator>>>() {
+//        Indicator c = new Indicator();
+//        c.setName("Inidicator 3");
+//        c.setDescription("Description 3");
+//
+//        indicators.add(a);
+//        indicators.add(b);
+//        indicators.add(c);
+//
+//
+//        TemporaryData.indicatorList=indicators;
+//        //setTextMessage(indicators.size() + "");\
+//        Toast.makeText(getApplicationContext(),TemporaryData.indicatorList.size()+"",Toast.LENGTH_LONG).show();
+//        adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
+//        rv.setAdapter(adapter);
+
+
+       //  List<Indicator> indicators = new ArrayList<>();
+
+
+
+        final Map<String, String> QUERY_MAP_FULL = new HashMap<>();
+        QUERY_MAP_FULL.put("fields", "*");
+
+        dhisApi.getIndicators(QUERY_MAP_FULL).enqueue(new Callback<Map<String, List<Indicator>>>() {
+            @Override
+            public void onResponse(Call<Map<String, List<Indicator>>> call, Response<Map<String, List<Indicator>>> response) {
+                //turnOffSpinner();
+                if (response.isSuccessful()) {
+                    List<Indicator> indicators =  response.body().get("indicators");
+                    TemporaryData.indicatorList=indicators;
+                    //setTextMessage(indicators.size() + "");\
+                    Toast.makeText(getApplicationContext(),TemporaryData.indicatorList.size()+"",Toast.LENGTH_LONG).show();
+                    IndicatorsListAdapter adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
+                    rv.setAdapter(adapter);
+                } else {
+                    // setTextMessage(response.message());
+                    Toast.makeText(getApplicationContext(),response.message()+"",Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, List<Indicator>>> call, Throwable t) {
+                //turnOffSpinner();
+                // setTextMessage(t.getMessage());
+                Toast.makeText(getApplicationContext(),t.getMessage()+"",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+//    public void getIndicators() {
+//        final Map<String, List<Indicator>> QUERY_MAP_FULL = new HashMap<>();
+//        dhisApi.getAllIndicators(QUERY_MAP_FULL).enqueue(new Callback<Indicator>()
+//        {
 //            @Override
-//            public void onResponse(Call<Map<String, List<Indicator>>> call, Response<Map<String, List<Indicator>>> response) {
-//                //turnOffSpinner();
-//                if (response.isSuccessful()) {
-//                    List<Indicator> indicators =  response.body().get("indicators");
-//                    TemporaryData.indicatorList=indicators;
-//                    //setTextMessage(indicators.size() + "");\
-//                    Toast.makeText(getApplicationContext(),TemporaryData.indicatorList.size()+"",Toast.LENGTH_LONG).show();
-//                    IndicatorsListAdapter adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
-//                    rv.setAdapter(adapter);
-//                } else {
-//                    // setTextMessage(response.message());
-//                    Toast.makeText(getApplicationContext(),response.message()+"",Toast.LENGTH_LONG).show();
+//            public void onResponse(Call<Indicator> call, Response<Indicator> response)
+//            {
+//                if (response.isSuccessful())
+//                {
+//                    TemporaryData.indicatorList = (List<Indicator>) response.body().get);
+//                   // IndicatorsListAdapter adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
+//
+//                    displayToastMessage("Success!");
+//                }
+//                else
+//                {
+//                    displayToastMessage(response.message());
 //                }
 //            }
 //
 //            @Override
-//            public void onFailure(Call<Map<String, List<Indicator>>> call, Throwable t) {
-//                //turnOffSpinner();
-//                // setTextMessage(t.getMessage());
-//                Toast.makeText(getApplicationContext(),t.getMessage()+"",Toast.LENGTH_LONG).show();
+//            public void onFailure(Call<Indicator> call, Throwable t)
+//            {
+//                displayToastMessage(t.getMessage());
 //            }
 //        });
-
-
-    }
-    public void getIndicators() {
-        final Map<String, List<Indicator>> QUERY_MAP_FULL = new HashMap<>();
-        dhisApi.getAllIndicators(QUERY_MAP_FULL).enqueue(new Callback<Indicator>()
-        {
-            @Override
-            public void onResponse(Call<Indicator> call, Response<Indicator> response)
-            {
-                if (response.isSuccessful())
-                {
-                    TemporaryData.indicatorList = (List<Indicator>) response.body();
-                    IndicatorsListAdapter adapter = new IndicatorsListAdapter(TemporaryData.indicatorList);
-//                  rv.setAdapter(adapter);
-                    displayToastMessage("Success!");
-                }
-                else
-                {
-                    displayToastMessage(response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Indicator> call, Throwable t)
-            {
-                displayToastMessage(t.getMessage());
-            }
-        });
-    }
-    private void displayToastMessage(String message)
-    {
-        Toast.makeText(
-                getApplicationContext(),
-                message,
-                Toast.LENGTH_SHORT).show();
-    }
+//    }
+//    private void displayToastMessage(String message)
+//    {
+//        Toast.makeText(
+//                getApplicationContext(),
+//                message,
+//                Toast.LENGTH_SHORT).show();
+//    }
 
 
 }
