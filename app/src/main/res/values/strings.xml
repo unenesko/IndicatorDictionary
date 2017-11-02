@@ -9,4 +9,5 @@
     <string name="get_program">get program</string>
     <string name="update_orgunit">update orgUnit</string>
     <string name="create_prog">create program</string>
+    <string name="title_activity_indicators_details">IndicatorsDetailsActivity</string>
 </resources>
