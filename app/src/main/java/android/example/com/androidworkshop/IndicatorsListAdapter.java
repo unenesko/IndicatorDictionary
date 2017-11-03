@@ -31,8 +31,18 @@ public class IndicatorsListAdapter extends RecyclerView.Adapter<IndicatorsListAd
 
     @Override
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
+
         personViewHolder.personName.setText(persons.get(i).getName());
         personViewHolder.personAge.setText(persons.get(i).getDescription());
+
+        if(i==1||i==5||i==1||i==11||i==31){
+            personViewHolder.personPhoto.setImageResource(R.drawable.ic_trending_flat);
+        } else if(i==2 || i==4 || i==8 || i==16 || i==32 || i==64 ){
+            personViewHolder.personPhoto.setImageResource(R.drawable.ic_trending_down);
+        }else{
+            personViewHolder.personPhoto.setImageResource(R.drawable.ic_trending_up);
+        }
+
         indicator=persons.get(i);
 
         //personViewHolder.personPhoto.setImageResource(persons.get(i).photoId);
@@ -64,7 +74,7 @@ public class IndicatorsListAdapter extends RecyclerView.Adapter<IndicatorsListAd
             cv = (CardView)itemView.findViewById(R.id.cv);
             personName = (TextView)itemView.findViewById(R.id.person_name);
             personAge = (TextView)itemView.findViewById(R.id.person_age);
-            // personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);
+             personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);
 
             cv.setOnClickListener(new View.OnClickListener() {
                 @Override

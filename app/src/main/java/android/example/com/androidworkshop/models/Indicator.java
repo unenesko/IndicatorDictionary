@@ -15,6 +15,7 @@ public class Indicator implements Serializable {
     String description;
     String displayShortName;
     String denominatorDescription;
+    String numeratorDescription;
     String displayDescription;
     String dimensionItem;
 
@@ -72,12 +73,21 @@ public class Indicator implements Serializable {
         this.displayShortName = displayShortName;
     }
 
+
     public String getDenominatorDescription() {
         return denominatorDescription;
     }
 
     public void setDenominatorDescription(String denominatorDescription) {
         this.denominatorDescription = denominatorDescription;
+    }
+
+    public String getNumeratorDescription() {
+        return numeratorDescription;
+    }
+
+    public void setNumeratorDescription(String numeratorDescription) {
+        this.numeratorDescription = numeratorDescription;
     }
 
     public String getDisplayDescription() {

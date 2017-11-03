@@ -1,7 +1,9 @@
 package android.example.com.androidworkshop;
 
+import android.example.com.androidworkshop.models.Indicator;
 import android.example.com.androidworkshop.models.Program;
 import android.example.com.androidworkshop.models.ProgramType;
+import android.example.com.androidworkshop.models.*;
 import android.example.com.androidworkshop.network.DhisApi;
 import android.example.com.androidworkshop.network.DhisServiceGenerator;
 import android.os.Bundle;
@@ -10,8 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -89,23 +93,29 @@ public class ProgramCreateActivity extends FragmentActivity {
 
         final Map<String, String> QUERY_MAP_FULL = new HashMap<>();
         QUERY_MAP_FULL.put("fields", "*");
-        dhisApi.getProgramById("lxAQ7Zs9VYR", QUERY_MAP_FULL).enqueue(new Callback<Program>() {
 
+        dhisApi.getDataValue(QUERY_MAP_FULL).enqueue(new Callback<Map<String, List<DataValue>>>() {
             @Override
-            public void onResponse(Call<Program> call, Response<Program> response) {
+            public void onResponse(Call<Map<String, List<DataValue>>> call, Response<Map<String, List<DataValue>>> response) {
                 turnOffSpinner();
-                if (response.isSuccessful()) {
-                    Program program = response.body();
-                    setTextMessage(program.getShortName());
+                if (response.isSuccessful())
+                {
+                    List<DataValue> indicators =  response.body().get("dataValues");
+                    //assign the Indicator List to a global class
+                    //IndicatorsData.setIndicators(indicators);
+                    //passDataToAdapter(rv, indicators);
+                    setTextMessage("--------"+indicators.get(0).getValue()+"--"+indicators.get(0).getPeriod()+"--------"+indicators.get(1).getValue());
                 } else {
-                   setTextMessage(response.message());
+                    // setTextMessage(response.message());
+                    Toast.makeText(getApplicationContext(),response.message()+"---------",Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Program> call, Throwable t) {
+            public void onFailure(Call<Map<String, List<DataValue>>> call, Throwable t) {
                 turnOffSpinner();
-                setTextMessage(t.getMessage());
+                 setTextMessage(t.getMessage());
+               // Toast.makeText(getApplicationContext(),t.getMessage()+"",Toast.LENGTH_LONG).show();
             }
         });
     }

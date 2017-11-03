@@ -18,9 +18,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class DhisServiceGenerator {
-    //final private static String SERVER_URL = "https://play.dhis2.org/demo/api/";
+    final private static String SERVER_URL = "https://play.dhis2.org/demo/api/";
 
-final private static String SERVER_URL = "https://play.dhis2.org/dev/api/";
+//final private static String SERVER_URL = "https://dhis2.org.mz/hosp1/api/";
     final private static String USERNAME = "admin";
     final private static String PASS = "district";
 

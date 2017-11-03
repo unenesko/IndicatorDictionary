@@ -5,6 +5,7 @@ package android.example.com.androidworkshop.network;
  * Created by John Melin on 19/10/2017.
  */
 
+import android.example.com.androidworkshop.models.DataValue;
 import android.example.com.androidworkshop.models.Indicator;
 import android.example.com.androidworkshop.models.OrganisationUnit;
 import android.example.com.androidworkshop.models.Program;
@@ -103,4 +104,12 @@ public interface DhisApi {
     @GET(ApiEndpointConstants.INDICATORS+ "?paging=false")
     Call<Map<String,List<Indicator>>> getIndicators(
             @QueryMap(encoded = false) Map<String,String> queryMap);
+
+    //https://play.dhis2.org/demo/api/analytics/dataValueSet.json?dimension=dx:Tt5TAvdfdVK&dimension=pe:2015;2016;2017;2016&dimension=ou:lc3eMKXaEfw
+
+    @GET("analytics/dataValueSet.json?dimension=pe:2015;2016;2017;&dimension=ou:lc3eMKXaEfw;")
+    Call<Map<String,List<DataValue>>> getDataValue(
+            @QueryMap(encoded = false) Map<String,String> queryMap);
+
+
 }
