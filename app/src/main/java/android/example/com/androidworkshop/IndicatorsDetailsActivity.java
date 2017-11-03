@@ -80,7 +80,7 @@ public class IndicatorsDetailsActivity extends AppCompatActivity {
         host.setup();
 
         //Tab 1
-        TabHost.TabSpec spec = host.newTabSpec("Data");
+        TabHost.TabSpec spec = host.newTabSpec("Data ");
         spec.setContent(R.id.tab1);
         spec.setIndicator("Data");
         host.addTab(spec);
