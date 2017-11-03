@@ -126,6 +126,8 @@ public class IndicatorsDetailsActivity extends AppCompatActivity {
                     graph.setTitle(indicators.get(0).getOrgUnit());
 
 
+
+
                 } else {
                     // setTextMessage(response.message());
                     Toast.makeText(getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
